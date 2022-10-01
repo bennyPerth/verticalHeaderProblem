@@ -1,9 +1,18 @@
 #include "verticalheaderproblem.h"
 #include "ui_verticalheaderproblem.h"
 
-//#include <QtGlobal>
 #include <QStandardItemModel>
 #include <QTableView>
+
+
+QString version = "a02";
+
+// 2 October 2022 (a02)
+// added foreground colours to show that they are working correctly
+
+// 1 October 2022 (a01)
+// initial code
+
 
 
 QFont boldFont11("Comic Sans MS" , 11 , QFont::Bold );
@@ -26,14 +35,10 @@ verticalHeaderProblem::~verticalHeaderProblem() {
 
 
 void verticalHeaderProblem::showTable() {
-    int maxRows = 7; int eatenRows = 0;
-    int bRed = 100; int bGreen = 125; int bBlue = 200;
-    int fRed = 32; int fGreen = 32; int fBlue = 32;
+    int maxRows = 7;
 
     QPushButton *aButton;
     QPushButton *bButton;
-    QString styleSheet;
-    QString aString;
 
     QStringList verticalHeaderLabels;
     verticalHeaderLabels.clear();
@@ -48,33 +53,48 @@ void verticalHeaderProblem::showTable() {
     detailsModel->setHorizontalHeaderLabels(horizontalHeaderLabels);
     ui->nutrientsView->verticalHeader()->setVisible(true);
 
-    QString foodName    = "black tea";
+    QString foodName;
+    int bRed, bGreen, bBlue;
+    int fRed, fGreen, fBlue;
 
     // main loop for showing each row
-    for (eatenRows = 0; eatenRows < maxRows; eatenRows++ ) {
+    for (int eatenRows = 0; eatenRows < maxRows; eatenRows++ ) {
+      bRed = 255; bGreen = 255; bBlue = 255;
+      fRed = 0; fGreen = 0; fBlue = 0;
+      if (eatenRows == 0) {
+        foodName = "black tea";
+        bRed = 255; bGreen = 0; bBlue = 0;
+        fRed = 0; fGreen = 0; fBlue = 32;
+        }
       if (eatenRows == 1) {
         foodName = "bananas";
-        bRed = 255; bGreen = 0; bBlue = 0;
+        bRed = 255; bGreen = 255; bBlue = 0;
+        fRed = 0; fGreen = 128; fBlue = 255;
         }
       if (eatenRows == 2) {
         foodName = "soy drink";
         bRed = 0; bGreen = 255; bBlue = 0;
+        fRed = 255; fGreen = 0; fBlue = 255;
         }
       if (eatenRows == 3) {
         foodName = "Vegemite";
         bRed = 0; bGreen = 0; bBlue = 255;
+        fRed = 128; fGreen = 128; fBlue = 32;
         }
       if (eatenRows == 4) {
         foodName = "Pavlova";
         bRed = 255; bGreen = 0; bBlue = 255;
+        fRed = 0; fGreen = 255; fBlue = 0;
         }
       if (eatenRows == 5) {
         foodName = "yoghurt";
         bRed = 128; bGreen = 0; bBlue = 255;
+        fRed = 0; fGreen = 128; fBlue = 0;
         }
       if (eatenRows == 6) {
         foodName = "butternut pumpkin";
         bRed = 128; bGreen = 255; bBlue = 0;
+        fRed = 128; fGreen = 0; fBlue = 255;
         }
 
       int foodSize    = 150 - eatenRows*2;
@@ -111,4 +131,3 @@ void verticalHeaderProblem::showTable() {
 void verticalHeaderProblem::on_btnExit_clicked() {
   close();
 }
-
